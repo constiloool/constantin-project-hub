@@ -14,42 +14,45 @@ export default function Home() {
             <span>01 / 03</span>
           </div>
           <h1 className="hero-title">
-            Projects that help people learn, practice and improve.
+            Building small projects for learning, focus and growth.
           </h1>
           <p className="hero-copy">
-            A personal hub for digital tools built around learning, focus and
-            self-improvement.
+            I build small digital projects out of curiosity — tools that help people
+            learn, practice, focus or improve in some way.
           </p>
           <div className="hero-actions">
             <Link className="button button-light group" href="/projects">
               Explore Projects <span aria-hidden="true" className="button-arrow">→</span>
             </Link>
-            <Link className="button button-ghost group" href="/projects/typemydocs">
-              View TypeMyDocs <span aria-hidden="true" className="button-arrow">→</span>
+            <Link className="button button-ghost group" href="#mission">
+              View Mission <span aria-hidden="true" className="button-arrow">↓</span>
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section-grid">
+      <section id="mission" className="section-grid">
         <div>
           <span className="eyebrow">* WHY I BUILD</span>
         </div>
         <div>
-          <h2 className="section-title">Small tools, clear purpose.</h2>
+          <h2 className="section-title">I like turning ideas into useful digital products.</h2>
           <p className="section-copy">
-            I build small digital projects that turn ideas into useful tools. Some help
-            with studying, some with practice, and others are experiments in making
-            focused work feel better.
+            Some are built to make learning easier, some help with focused practice,
+            and others are experiments in improving everyday workflows.
           </p>
         </div>
       </section>
 
       <section className="wide-section">
         <div className="section-heading">
-          <span className="eyebrow">* FEATURED BUILD</span>
+          <span className="eyebrow">* CURRENT PROJECTS</span>
           <span className="section-count">02 / 03</span>
         </div>
+        <p className="section-intro">
+          A growing collection of tools and experiments. Right now, the first live
+          project is {featuredProject.name}.
+        </p>
         <ProjectCard project={featuredProject} large showExternalLink={false} />
       </section>
 
@@ -61,8 +64,8 @@ export default function Home() {
         <div className="values-grid">
           {[
             ["Learn by doing", "Projects should help people practice actively, not just consume information."],
-            ["Useful over random", "Tools should solve specific problems and feel practical."],
-            ["Small ideas, polished execution", "Even simple projects can feel valuable when the experience is clean."],
+            ["Build useful things", "Small tools should solve specific problems and feel practical."],
+            ["Keep experimenting", "Curiosity makes room for new ideas, sharper skills and better workflows."],
           ].map(([title, text]) => (
             <article className="value-card" key={title}>
               <span aria-hidden="true">✦</span>

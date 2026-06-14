@@ -22,6 +22,7 @@ export default function TypeMyDocsPage() {
           <span className="eyebrow">* LIVE PROJECT</span>
           <h1>{project.name}</h1>
           <p>Practice typing with your own documents instead of random word drills.</p>
+          <p className="external-note">The button below opens the live TypeMyDocs app in a new tab.</p>
           <div className="hero-actions">
             <a
               className="button button-light group"
@@ -29,7 +30,7 @@ export default function TypeMyDocsPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open TypeMyDocs <span aria-hidden="true" className="button-arrow">↗</span>
+              Open TypeMyDocs App <span aria-hidden="true" className="button-arrow">↗</span>
             </a>
             <Link className="button button-ghost group" href="/projects">
               Back to Projects <span aria-hidden="true" className="button-arrow">→</span>
@@ -56,7 +57,11 @@ export default function TypeMyDocsPage() {
         <div><span className="eyebrow">* WHAT IT IS</span></div>
         <div>
           <h2 className="section-title">Typing practice with material that matters.</h2>
-          <p className="section-copy">{project.longDescription}</p>
+          <p className="section-copy">
+            TypeMyDocs turns PDFs into structured typing sessions. Upload a document,
+            work through it section by section, and build better typing habits with
+            material that actually matters to you.
+          </p>
         </div>
       </section>
 
@@ -91,19 +96,6 @@ export default function TypeMyDocsPage() {
             </article>
           ))}
         </div>
-      </section>
-
-      <section className="cta-panel">
-        <span className="eyebrow">* TRY THE APP</span>
-        <h2>Bring your own PDFs into typing practice.</h2>
-        <a
-          className="button button-light group"
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open App <span aria-hidden="true" className="button-arrow">↗</span>
-        </a>
       </section>
     </main>
   );

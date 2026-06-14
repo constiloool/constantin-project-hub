@@ -4,9 +4,10 @@ import type { Project } from "@/data/projects";
 type ProjectCardProps = {
   project: Project;
   large?: boolean;
+  showExternalLink?: boolean;
 };
 
-export function ProjectCard({ project, large = false }: ProjectCardProps) {
+export function ProjectCard({ project, large = false, showExternalLink = true }: ProjectCardProps) {
   return (
     <article className={`project-card group ${large ? "lg:col-span-2" : ""}`}>
       <div className="flex items-center justify-between gap-4">
@@ -15,12 +16,12 @@ export function ProjectCard({ project, large = false }: ProjectCardProps) {
           {project.status}
         </span>
       </div>
-      <div className="mt-10 grid gap-8 md:grid-cols-[1.05fr_0.95fr] md:items-end">
-        <div>
-          <h3 className="text-5xl font-semibold leading-none tracking-tight md:text-7xl">
+      <div className="project-card-body">
+        <div className="min-w-0">
+          <h3 className="project-card-title">
             {project.name}
           </h3>
-          <p className="mt-5 max-w-xl text-lg leading-tight text-ink/68">
+          <p className="project-card-copy">
             {project.description}
           </p>
         </div>
@@ -43,7 +44,7 @@ export function ProjectCard({ project, large = false }: ProjectCardProps) {
           </div>
         </div>
       </div>
-      <div className="mt-10 flex flex-wrap items-center justify-between gap-5">
+      <div className="project-card-footer">
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span key={tag} className="tag">
@@ -53,16 +54,18 @@ export function ProjectCard({ project, large = false }: ProjectCardProps) {
         </div>
         <div className="flex flex-wrap gap-3">
           <Link className="button button-dark group" href={`/projects/${project.slug}`}>
-            View Project <span aria-hidden="true" className="button-arrow">→</span>
+            View Project Details <span aria-hidden="true" className="button-arrow">→</span>
           </Link>
-          <a
-            className="button button-light group"
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open App <span aria-hidden="true" className="button-arrow">↗</span>
-          </a>
+          {showExternalLink ? (
+            <a
+              className="button button-light group"
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open TypeMyDocs App <span aria-hidden="true" className="button-arrow">↗</span>
+            </a>
+          ) : null}
         </div>
       </div>
     </article>

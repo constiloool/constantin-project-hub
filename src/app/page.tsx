@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
-import { projectPlaceholders, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 
 const featuredProject = projects.find((project) => project.featured) ?? projects[0];
 
@@ -11,14 +11,14 @@ export default function Home() {
         <div className="hero-panel">
           <div className="hero-topline">
             <span>* THE PROJECT HUB</span>
-            <span>01 / 04</span>
+            <span>01 / 03</span>
           </div>
           <h1 className="hero-title">
             Projects that help people learn, practice and improve.
           </h1>
           <p className="hero-copy">
-            A personal hub for digital projects designed to make learning, practicing and
-            self-improvement feel more focused, useful and enjoyable.
+            A personal hub for digital tools built around learning, focus and
+            self-improvement.
           </p>
           <div className="hero-actions">
             <Link className="button button-light group" href="/projects">
@@ -28,24 +28,19 @@ export default function Home() {
               View TypeMyDocs <span aria-hidden="true" className="button-arrow">→</span>
             </Link>
           </div>
-          <div className="float-card float-one">Learning Tools</div>
-          <div className="float-card float-two">Practice Apps</div>
-          <div className="float-card float-three">Built with curiosity</div>
         </div>
       </section>
 
-      <section id="about" className="section-grid">
+      <section className="section-grid">
         <div>
           <span className="eyebrow">* WHY I BUILD</span>
         </div>
         <div>
-          <h2 className="section-title">
-            I turn small ideas into focused digital tools.
-          </h2>
+          <h2 className="section-title">Small tools, clear purpose.</h2>
           <p className="section-copy">
-            I like creating projects that turn ideas into useful products. Some help you
-            learn faster, some make practice more focused, and others are experiments in
-            building calmer, better digital experiences.
+            I build small digital projects that turn ideas into useful tools. Some help
+            with studying, some with practice, and others are experiments in making
+            focused work feel better.
           </p>
         </div>
       </section>
@@ -53,15 +48,15 @@ export default function Home() {
       <section className="wide-section">
         <div className="section-heading">
           <span className="eyebrow">* FEATURED BUILD</span>
-          <span className="section-count">02 / 04</span>
+          <span className="section-count">02 / 03</span>
         </div>
-        <ProjectCard project={featuredProject} large />
+        <ProjectCard project={featuredProject} large showExternalLink={false} />
       </section>
 
       <section className="values-section">
         <div className="section-heading">
           <span className="eyebrow">* PRINCIPLES</span>
-          <span className="section-count">03 / 04</span>
+          <span className="section-count">03 / 03</span>
         </div>
         <div className="values-grid">
           {[
@@ -74,27 +69,6 @@ export default function Home() {
               <h3>{title}</h3>
               <p>{text}</p>
             </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="wide-section">
-        <div className="section-heading">
-          <span className="eyebrow">* PROJECT PREVIEW</span>
-          <span className="section-count">04 / 04</span>
-        </div>
-        <div className="preview-grid">
-          <Link className="mini-project live" href="/projects/typemydocs">
-            <span>Live Project</span>
-            <strong>TypeMyDocs</strong>
-            <p>Typing practice with your own PDFs.</p>
-          </Link>
-          {projectPlaceholders.map((project) => (
-            <div className="mini-project muted" key={project.name}>
-              <span>Coming Soon</span>
-              <strong>{project.name}</strong>
-              <p>{project.description}</p>
-            </div>
           ))}
         </div>
       </section>

@@ -1,10 +1,8 @@
 import Link from "next/link";
 
 const navItems = [
-  { label: "Home", href: "/" },
   { label: "Projects", href: "/projects" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "mailto:hello@example.com" },
+  { label: "TypeMyDocs", href: "/projects/typemydocs" },
 ];
 
 export function Nav() {
@@ -14,17 +12,22 @@ export function Nav() {
         <Link href="/" className="text-sm font-semibold tracking-tight text-ink">
           Constantin Projects
         </Link>
-        <div className="hidden items-center gap-7 text-xs font-medium text-ink/60 md:flex">
+        <div className="nav-links">
           {navItems.map((item) => (
             <Link key={item.label} href={item.href} className="transition hover:text-ink">
               {item.label}
             </Link>
           ))}
         </div>
-        <Link className="button button-dark group text-xs" href="/projects">
-          Explore
+        <a
+          className="button button-dark group text-xs"
+          href="https://typemydocs.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Open TypeMyDocs
           <span aria-hidden="true" className="button-arrow">→</span>
-        </Link>
+        </a>
       </nav>
     </header>
   );

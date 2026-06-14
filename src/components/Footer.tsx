@@ -10,7 +10,9 @@ export function Footer() {
       <nav aria-label="Footer navigation">
         <Link href="/projects">Projects</Link>
         <Link href="/projects/typemydocs">TypeMyDocs</Link>
-        <a href="mailto:hello@example.com">Contact</a>
+        <a href="https://typemydocs.vercel.app/" target="_blank" rel="noopener noreferrer">
+          Open TypeMyDocs App
+        </a>
       </nav>
     </footer>
   );

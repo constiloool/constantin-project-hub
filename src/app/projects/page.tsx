@@ -30,8 +30,8 @@ export default function ProjectsPage() {
 
       <section className="wide-section">
         <div className="section-heading">
-          <span className="eyebrow">* NEXT AREAS</span>
-          <span className="section-count">Growing archive</span>
+          <span className="eyebrow">* LATER</span>
+          <span className="section-count">Not live yet</span>
         </div>
         <div className="preview-grid">
           {projectPlaceholders.map((project) => (

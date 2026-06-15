@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard";
-import { projectPlaceholders, projects } from "@/data/projects";
+import { projects } from "@/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects — Constantin Projects",
@@ -15,8 +15,8 @@ export default function ProjectsPage() {
         <span className="eyebrow">* ALL BUILDS</span>
         <h1>Projects</h1>
         <p>
-          A growing collection of tools built around learning, practice and personal
-          progress.
+          A growing collection of projects built around learning, practice and useful
+          digital experiments.
         </p>
       </section>
 
@@ -28,21 +28,6 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      <section className="wide-section">
-        <div className="section-heading">
-          <span className="eyebrow">* LATER</span>
-          <span className="section-count">Not live yet</span>
-        </div>
-        <div className="preview-grid">
-          {projectPlaceholders.map((project) => (
-            <div className="mini-project muted" key={project.name}>
-              <span>Coming Soon</span>
-              <strong>{project.name}</strong>
-              <p>{project.description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
     </main>
   );
 }

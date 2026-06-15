@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
+import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { projects } from "@/data/projects";
 
 const featuredProject = projects.find((project) => project.featured) ?? projects[0];
@@ -14,10 +15,10 @@ export default function Home() {
             <span>01 / 03</span>
           </div>
           <h1 className="hero-title">
-            Building small projects for learning, focus and growth.
+            A growing hub for useful digital experiments.
           </h1>
           <p className="hero-copy">
-            I build small digital projects out of curiosity — tools that help people
+            I build digital projects out of curiosity - tools that help people
             learn, practice, focus or improve in some way.
           </p>
           <div className="hero-actions">
@@ -30,6 +31,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ProjectShowcase projects={projects} />
 
       <section id="mission" className="section-grid">
         <div>
@@ -46,8 +49,8 @@ export default function Home() {
 
       <section className="wide-section">
         <div className="section-heading">
-          <span className="eyebrow">* CURRENT PROJECTS</span>
-          <span className="section-count">02 / 03</span>
+          <span className="eyebrow">Current Projects Preview</span>
+          <span className="section-count">From projects.ts</span>
         </div>
         <p className="section-intro">
           A growing collection of tools and experiments. Right now, the first live

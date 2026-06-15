@@ -63,7 +63,7 @@ export function ProjectCard({ project, large = false, showExternalLink = true }:
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open TypeMyDocs App <span aria-hidden="true" className="button-arrow">↗</span>
+              Open {project.name} App <span aria-hidden="true" className="button-arrow">↗</span>
             </a>
           ) : null}
         </div>

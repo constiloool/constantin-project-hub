@@ -270,6 +270,19 @@ button {
   padding: clamp(1.5rem, 5vw, 3.5rem);
 }
 
+.hero-layout {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+}
+
+.hero-main {
+  min-width: 0;
+}
+
 .hero-panel::before,
 .showcase-visual::before {
   content: "";
@@ -280,6 +293,7 @@ button {
     linear-gradient(110deg, rgba(0, 173, 255, 0.2), rgba(136, 230, 98, 0.28)),
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0 1px, transparent 1px 92px);
   transform: skewY(-4deg);
+  pointer-events: none;
 }
 
 .hero-topline,
@@ -306,6 +320,7 @@ button {
   line-height: 0.92;
   letter-spacing: 0;
   animation: rise 700ms ease both;
+  overflow-wrap: anywhere;
 }
 
 .hero-copy {
@@ -407,6 +422,8 @@ button {
 
 .showcase-visual {
   position: relative;
+  display: flex;
+  align-items: flex-end;
   min-height: 360px;
   overflow: hidden;
   border-radius: 1.6rem;
@@ -417,6 +434,7 @@ button {
 
 .aero-orb {
   position: absolute;
+  z-index: 0;
   border-radius: 999px;
   background:
     radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.95), transparent 18%),
@@ -449,6 +467,104 @@ button {
   color: #13201b;
   box-shadow: 0 22px 60px rgba(31, 117, 157, 0.13);
   backdrop-filter: blur(12px);
+}
+
+.rotating-tile {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 270px;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(231, 250, 255, 0.72)),
+    radial-gradient(circle at 90% 10%, rgba(136, 223, 80, 0.22), transparent 9rem);
+  padding: 1.15rem;
+  box-shadow: 0 18px 48px rgba(31, 117, 157, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.hero-info-tile {
+  align-self: end;
+  height: 300px;
+}
+
+.featured-rotator {
+  width: min(100%, 430px);
+  height: 312px;
+  margin: auto auto 1.1rem;
+}
+
+.principle-rotator {
+  height: 260px;
+}
+
+.rotating-tile-content {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  animation: tileFade 420ms ease both;
+}
+
+.rotating-tile-label {
+  color: rgba(19, 32, 27, 0.52);
+  font-size: 0.73rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.rotating-tile h3 {
+  margin-top: 1.8rem;
+  color: #13201b;
+  font-size: clamp(1.45rem, 3vw, 2.25rem);
+  font-weight: 900;
+  line-height: 0.98;
+  overflow-wrap: anywhere;
+}
+
+.rotating-tile p {
+  margin-top: 0.85rem;
+  color: rgba(19, 32, 27, 0.62);
+  line-height: 1.35;
+}
+
+.rotating-tile-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  margin-top: auto;
+  border-radius: 999px;
+  background: #13201b;
+  color: white;
+  padding: 0.72rem 0.9rem;
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+
+.rotating-tile-dots {
+  display: flex;
+  gap: 0.38rem;
+  margin-top: 1.1rem;
+}
+
+.rotating-tile-dots button {
+  height: 0.5rem;
+  width: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(19, 32, 27, 0.22);
+  padding: 0;
+}
+
+.rotating-tile-dots button[aria-pressed="true"] {
+  width: 1.45rem;
+  background: #1373ff;
 }
 
 .showcase-device {
@@ -700,6 +816,10 @@ button {
   grid-template-columns: repeat(3, 1fr);
 }
 
+.values-grid-mixed {
+  align-items: stretch;
+}
+
 .value-card,
 .mini-project {
   min-height: 190px;
@@ -880,6 +1000,17 @@ button {
   }
 }
 
+@keyframes tileFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -893,6 +1024,7 @@ button {
 
 @media (max-width: 900px) {
   .showcase-card,
+  .hero-layout,
   .section-grid,
   .project-hero,
   .project-card-body {
@@ -910,6 +1042,10 @@ button {
 
   .showcase-visual {
     min-height: 320px;
+  }
+
+  .hero-info-tile {
+    height: 250px;
   }
 }
 
@@ -1006,9 +1142,22 @@ button {
     min-height: 280px;
   }
 
-  .showcase-device {
-    left: 1rem;
-    right: 1rem;
+  .featured-rotator {
+    width: calc(100% - 2rem);
+    margin: auto 1rem 1rem;
+  }
+
+  .rotating-tile {
+    min-height: 230px;
+    padding: 1rem;
+  }
+
+  .principle-rotator {
+    height: 250px;
+  }
+
+  .featured-rotator {
+    height: 300px;
   }
 
   .detail-mockup-header {

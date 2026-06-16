@@ -38,45 +38,16 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     return null;
   }
 
-  const featuredSlides: RotatingInfoSlide[] = [
-    {
-      label: "FEATURED PROJECT",
-      title: activeProject.name,
-      text: "Practice typing with your own PDFs instead of random word drills.",
-      button: {
-        label: "View Project",
-        href: `/projects/${activeProject.slug}`,
-      },
+  const featuredSlides: RotatingInfoSlide[] = activeProject.showcaseSlides.map((slide) => ({
+    label: slide.label,
+    title: slide.title,
+    text: slide.text,
+    button: {
+      label: slide.buttonLabel ?? "View Project",
+      href: slide.external ? activeProject.url : `/projects/${activeProject.slug}`,
+      external: slide.external,
     },
-    {
-      label: "WHY IT EXISTS",
-      title: "Practice should feel relevant.",
-      text: "TypeMyDocs turns real documents into structured typing sessions, so training feels more useful.",
-      button: {
-        label: "View Project",
-        href: `/projects/${activeProject.slug}`,
-      },
-    },
-    {
-      label: "HOW IT WORKS",
-      title: "Upload. Type. Improve.",
-      text: "Add a PDF, work through sections, skip when needed and track your progress over time.",
-      button: {
-        label: "View Project",
-        href: `/projects/${activeProject.slug}`,
-      },
-    },
-    {
-      label: "LIVE APP",
-      title: "Try the first project.",
-      text: "TypeMyDocs is the first live project in this hub and will be followed by more experiments.",
-      button: {
-        label: "Open App",
-        href: activeProject.url,
-        external: true,
-      },
-    },
-  ];
+  }));
 
   return (
     <section className="showcase-section" aria-labelledby="project-showcase-title">

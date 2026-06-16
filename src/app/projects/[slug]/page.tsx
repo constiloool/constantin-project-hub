@@ -39,6 +39,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   }
 
   const isTypeMyDocs = project.slug === "typemydocs";
+  const isFocusTimer = project.slug === "focus-timer";
+  const openLabel = isFocusTimer ? "Focus Timer öffnen" : `Open ${project.name} App`;
 
   return (
     <main className="page-stack">
@@ -59,26 +61,45 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open {project.name} App <span aria-hidden="true" className="button-arrow">↗</span>
+              {openLabel} <span aria-hidden="true" className="button-arrow">↗</span>
             </a>
             <Link className="button button-ghost group" href="/projects">
               Back to Projects <span aria-hidden="true" className="button-arrow">→</span>
             </Link>
           </div>
         </div>
-        <div className="detail-mockup" aria-label={`${project.name} product preview`}>
-          <div className="detail-mockup-header">
-            <span>{isTypeMyDocs ? "PDF Upload" : "Project Preview"}</span>
-            <b>{isTypeMyDocs ? "Section 3 of 12" : project.status}</b>
-          </div>
-          <div className="typing-line active">{project.tagline}</div>
-          <div className="typing-line">{project.description}</div>
-          <div className="typing-line short">Built for useful, focused practice.</div>
-          <div className="metric-row">
-            <div><strong>Live</strong><span>Status</span></div>
-            <div><strong>{project.tags[0]}</strong><span>Focus</span></div>
-            <div><strong>{project.tags[1]}</strong><span>Area</span></div>
-          </div>
+        <div className={`detail-mockup ${isFocusTimer ? "timer-detail-mockup" : ""}`} aria-label={`${project.name} product preview`}>
+          {isFocusTimer ? (
+            <>
+              <div className="detail-mockup-header">
+                <span>Focus Session</span>
+                <b>25:00</b>
+              </div>
+              <div className="timer-detail-dial">
+                <span>25:00</span>
+              </div>
+              <div className="metric-row">
+                <div><strong>Focus</strong><span>Mode</span></div>
+                <div><strong>Custom</strong><span>Time</span></div>
+                <div><strong>Saved</strong><span>Settings</span></div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="detail-mockup-header">
+                <span>{isTypeMyDocs ? "PDF Upload" : "Project Preview"}</span>
+                <b>{isTypeMyDocs ? "Section 3 of 12" : project.status}</b>
+              </div>
+              <div className="typing-line active">{project.tagline}</div>
+              <div className="typing-line">{project.description}</div>
+              <div className="typing-line short">Built for useful, focused practice.</div>
+              <div className="metric-row">
+                <div><strong>Live</strong><span>Status</span></div>
+                <div><strong>{project.tags[0]}</strong><span>Focus</span></div>
+                <div><strong>{project.tags[1]}</strong><span>Area</span></div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -123,7 +144,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Open {project.name} App <span aria-hidden="true" className="button-arrow">↗</span>
+          {openLabel} <span aria-hidden="true" className="button-arrow">↗</span>
         </a>
       </section>
     </main>

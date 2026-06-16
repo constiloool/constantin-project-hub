@@ -8,6 +8,8 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project, large = false, showExternalLink = true }: ProjectCardProps) {
+  const isFocusTimer = project.slug === "focus-timer";
+
   return (
     <article className={`project-card group ${large ? "lg:col-span-2" : ""}`}>
       <div className="flex items-center justify-between gap-4">
@@ -25,23 +27,35 @@ export function ProjectCard({ project, large = false, showExternalLink = true }:
             {project.description}
           </p>
         </div>
-        <div className="mock-window" aria-hidden="true">
+        <div className={`mock-window ${isFocusTimer ? "timer-mock" : ""}`} aria-hidden="true">
           <div className="mock-bar">
             <span />
             <span />
             <span />
           </div>
-          <div className="mock-lines">
-            <strong>PDF Practice</strong>
-            <span>Section 3 of 12</span>
-            <div className="mock-progress">
-              <i />
+          {isFocusTimer ? (
+            <div className="timer-mock-body">
+              <div className="timer-dial-preview">
+                <span>25:00</span>
+              </div>
+              <strong>Focus Mode</strong>
+              <span>Custom time + colors</span>
             </div>
-          </div>
-          <div className="mock-stats">
-            <b>72 WPM</b>
-            <b>97%</b>
-          </div>
+          ) : (
+            <>
+              <div className="mock-lines">
+                <strong>PDF Practice</strong>
+                <span>Section 3 of 12</span>
+                <div className="mock-progress">
+                  <i />
+                </div>
+              </div>
+              <div className="mock-stats">
+                <b>72 WPM</b>
+                <b>97%</b>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="project-card-footer">

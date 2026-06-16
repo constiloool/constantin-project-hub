@@ -4,8 +4,6 @@ import { ProjectShowcase } from "@/components/ProjectShowcase";
 import { RotatingInfoTile } from "@/components/RotatingInfoTile";
 import { projects } from "@/data/projects";
 
-const featuredProject = projects.find((project) => project.featured) ?? projects[0];
-
 export default function Home() {
   const missionSlides = [
     {
@@ -110,10 +108,14 @@ export default function Home() {
           <span className="section-count">From projects.ts</span>
         </div>
         <p className="section-intro">
-          A growing collection of tools and experiments. Right now, the first live
-          project is {featuredProject.name}.
+          A growing collection of tools and experiments. The hub now includes
+          focused practice tools for typing and deep work.
         </p>
-        <ProjectCard project={featuredProject} large showExternalLink={false} />
+        <div className="projects-list">
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} showExternalLink={false} />
+          ))}
+        </div>
       </section>
 
       <section className="values-section">

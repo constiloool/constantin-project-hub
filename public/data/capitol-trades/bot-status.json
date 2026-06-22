@@ -1,0 +1,9 @@
+{
+  "botStatus": "Running",
+  "lastScan": "2026-06-22 14:32",
+  "dataSource": "Official disclosure filings",
+  "broker": "Alpaca Paper Trading",
+  "safeMode": true,
+  "cron": "Active",
+  "lastError": "None"
+}

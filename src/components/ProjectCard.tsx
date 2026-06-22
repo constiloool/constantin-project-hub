@@ -9,6 +9,7 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, large = false, showExternalLink = true }: ProjectCardProps) {
   const isFocusTimer = project.slug === "focus-timer";
+  const isCapitolTrades = project.slug === "capitol-trades-bot";
 
   return (
     <article className={`project-card group ${large ? "lg:col-span-2" : ""}`}>
@@ -27,13 +28,26 @@ export function ProjectCard({ project, large = false, showExternalLink = true }:
             {project.description}
           </p>
         </div>
-        <div className={`mock-window ${isFocusTimer ? "timer-mock" : ""}`} aria-hidden="true">
+        <div className={`mock-window ${isFocusTimer ? "timer-mock" : ""} ${isCapitolTrades ? "trades-mock" : ""}`} aria-hidden="true">
           <div className="mock-bar">
             <span />
             <span />
             <span />
           </div>
-          {isFocusTimer ? (
+          {isCapitolTrades ? (
+            <div className="trades-mock-body">
+              <div className="trades-mock-metrics">
+                <span><small>Portfolio</small><strong>$10,420</strong></span>
+                <span><small>Return</small><strong>+4.2%</strong></span>
+              </div>
+              <svg viewBox="0 0 320 90" role="presentation">
+                <path className="trades-mock-area" d="M4 74 C35 66 48 72 76 59 S120 64 148 43 S195 50 222 30 S275 38 316 12 L316 88 L4 88 Z" />
+                <path className="trades-mock-line" d="M4 74 C35 66 48 72 76 59 S120 64 148 43 S195 50 222 30 S275 38 316 12" />
+              </svg>
+              <div className="trades-mock-row"><b>NVDA</b><span>Copied</span></div>
+              <div className="trades-mock-row"><b>TSLA</b><span>Skipped · Age</span></div>
+            </div>
+          ) : isFocusTimer ? (
             <div className="timer-mock-body">
               <div className="timer-dial-preview">
                 <span>25:00</span>
@@ -70,7 +84,7 @@ export function ProjectCard({ project, large = false, showExternalLink = true }:
           <Link className="button button-dark group" href={`/projects/${project.slug}`}>
             View Project Details <span aria-hidden="true" className="button-arrow">→</span>
           </Link>
-          {showExternalLink ? (
+          {showExternalLink && project.url ? (
             <a
               className="button button-light group"
               href={project.url}

@@ -1,0 +1,29 @@
+[
+  {
+    "date": "2026-06-22",
+    "politician": "Example Representative",
+    "ticker": "NVDA",
+    "action": "BUY",
+    "signalAge": "2 days",
+    "allocation": "$250",
+    "status": "Copied"
+  },
+  {
+    "date": "2026-06-21",
+    "politician": "Example Senator",
+    "ticker": "MSFT",
+    "action": "BUY",
+    "signalAge": "4 days",
+    "allocation": "$180",
+    "status": "Copied"
+  },
+  {
+    "date": "2026-06-19",
+    "politician": "Example Representative",
+    "ticker": "GOOGL",
+    "action": "BUY",
+    "signalAge": "3 days",
+    "allocation": "$220",
+    "status": "Copied"
+  }
+]

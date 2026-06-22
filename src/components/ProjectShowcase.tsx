@@ -44,7 +44,7 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     text: slide.text,
     button: {
       label: slide.buttonLabel ?? "View Project",
-      href: slide.external ? activeProject.url : `/projects/${activeProject.slug}`,
+      href: slide.external && activeProject.url ? activeProject.url : `/projects/${activeProject.slug}`,
       external: slide.external,
     },
   }));
@@ -75,14 +75,16 @@ export function ProjectShowcase({ projects }: ProjectShowcaseProps) {
             <Link className="button button-dark group" href={`/projects/${activeProject.slug}`}>
               View Project <span aria-hidden="true" className="button-arrow">→</span>
             </Link>
-            <a
-              className="button button-light group"
-              href={activeProject.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open App <span aria-hidden="true" className="button-arrow">↗</span>
-            </a>
+            {activeProject.url ? (
+              <a
+                className="button button-light group"
+                href={activeProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open App <span aria-hidden="true" className="button-arrow">↗</span>
+              </a>
+            ) : null}
           </div>
         </div>
 

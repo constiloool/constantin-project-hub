@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CapitolTradesDashboard } from "@/components/capitol-trades/CapitolTradesDashboard";
 import { getProject, projects } from "@/data/projects";
 
 type ProjectPageProps = {
@@ -38,6 +39,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
     return null;
   }
 
+  if (project.slug === "capitol-trades-bot") {
+    return <CapitolTradesDashboard />;
+  }
+
   const isTypeMyDocs = project.slug === "typemydocs";
   const isFocusTimer = project.slug === "focus-timer";
   const openLabel = isFocusTimer ? "Focus Timer öffnen" : `Open ${project.name} App`;
@@ -57,7 +62,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="hero-actions">
             <a
               className="button button-light group"
-              href={project.url}
+              href={project.url!}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -140,7 +145,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <h2>Try {project.name}.</h2>
         <a
           className="button button-light group"
-          href={project.url}
+          href={project.url!}
           target="_blank"
           rel="noopener noreferrer"
         >

@@ -8,7 +8,7 @@ export type Project = {
   why: string;
   category: string;
   tags: string[];
-  url: string;
+  url?: string;
   featured: boolean;
   status: "Live" | "Coming Soon";
   showcaseSlides: Array<{
@@ -25,6 +25,60 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "capitol-trades-bot",
+    name: "Capitol Trades Bot",
+    tagline: "Rule-based paper trading from official political disclosures.",
+    shortDescription: "A read-only dashboard for a disclosure-driven paper-trading bot.",
+    description:
+      "A paper-trading bot that analyses official political trades, applies risk rules and mirrors selected signals in an Alpaca paper portfolio.",
+    longDescription:
+      "Capitol Trades Bot turns official political trade disclosures into a transparent portfolio simulation. It checks newly reported trades, evaluates freshness, tradability, duplicates and risk limits, and records why each signal was copied or skipped.",
+    why:
+      "The project explores whether public disclosure data can become a disciplined, auditable trading workflow. The dashboard makes both the portfolio results and the rule-engine decisions visible without exposing broker access or enabling trades from the website.",
+    category: "Trading Experiment",
+    tags: ["Paper Trading", "Rule Engine", "Alpaca", "Disclosures"],
+    featured: false,
+    status: "Live",
+    showcaseSlides: [
+      {
+        label: "PAPER-TRADING BOT",
+        title: "Capitol Trades Bot",
+        text: "A transparent dashboard for rule-based trades derived from official disclosures.",
+        buttonLabel: "View Dashboard",
+      },
+      {
+        label: "RISK FILTERS",
+        title: "Signals are evaluated first.",
+        text: "Freshness, tradability, duplicates and allocation limits decide what gets copied.",
+        buttonLabel: "View Rules",
+      },
+      {
+        label: "READ-ONLY",
+        title: "Decisions, not controls.",
+        text: "The website visualises paper-trading activity without exposing credentials or execution controls.",
+        buttonLabel: "Open Dashboard",
+      },
+    ],
+    features: [
+      {
+        title: "Official disclosure data",
+        description: "Reads reported political trades from public filing sources.",
+      },
+      {
+        title: "Rule-based decisions",
+        description: "Checks freshness, tradability, duplicates and risk limits.",
+      },
+      {
+        title: "Paper portfolio",
+        description: "Mirrors valid signals in an Alpaca paper-trading account.",
+      },
+      {
+        title: "Auditable outcomes",
+        description: "Records copied and skipped trades with their decision reasons.",
+      },
+    ],
+  },
   {
     slug: "typemydocs",
     name: "TypeMyDocs",

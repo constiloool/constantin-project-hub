@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2026-06-22",
+    "politician": "Example Representative",
+    "ticker": "TSLA",
+    "action": "BUY",
+    "reason": "Disclosure older than 7 days",
+    "status": "Skipped"
+  },
+  {
+    "date": "2026-06-21",
+    "politician": "Example Senator",
+    "ticker": "ABCD",
+    "action": "BUY",
+    "reason": "Ticker not tradable on Alpaca",
+    "status": "Skipped"
+  },
+  {
+    "date": "2026-06-20",
+    "politician": "Example Representative",
+    "ticker": "AMZN",
+    "action": "BUY",
+    "reason": "Position already exists",
+    "status": "Skipped"
+  },
+  {
+    "date": "2026-06-18",
+    "politician": "Example Senator",
+    "ticker": "META",
+    "action": "BUY",
+    "reason": "Risk limit reached",
+    "status": "Skipped"
+  }
+]

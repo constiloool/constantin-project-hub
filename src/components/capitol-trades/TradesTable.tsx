@@ -41,7 +41,15 @@ export function TradesTable(props: TradesTableProps) {
           </tr>
         </thead>
         <tbody>
-          {props.rows.map((row) => (
+          {props.rows.length === 0 ? (
+            <tr>
+              <td className="ct-table-empty" colSpan={copied ? 7 : 6}>
+                {copied
+                  ? "No bot-executed paper trades yet."
+                  : "No skipped decisions are available yet."}
+              </td>
+            </tr>
+          ) : props.rows.map((row) => (
             <tr key={`${row.date}-${row.ticker}-${row.politician}`}>
               <td>{row.date}</td>
               <td>{row.politician}</td>

@@ -1729,6 +1729,12 @@ button {
   color: #13201b;
 }
 
+.ct-table .ct-table-empty {
+  padding: 2.25rem 0.75rem;
+  color: rgba(19, 32, 27, 0.5);
+  text-align: center;
+}
+
 .ct-status-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);

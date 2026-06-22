@@ -5,5 +5,13 @@
   "broker": "Alpaca Paper Trading",
   "safeMode": true,
   "cron": "Active",
-  "lastError": "None"
+  "lastError": "None",
+  "marketOpen": false,
+  "equity": 10420,
+  "portfolioValue": 10420,
+  "buyingPower": 20840,
+  "cash": 10000,
+  "openPositions": 6,
+  "copiedTrades": 18,
+  "positions": []
 }

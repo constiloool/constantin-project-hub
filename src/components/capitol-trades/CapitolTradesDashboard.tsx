@@ -19,6 +19,22 @@ type BotStatus = {
   safeMode: boolean;
   cron: string;
   lastError: string;
+  marketOpen: boolean;
+  equity: number;
+  portfolioValue: number;
+  buyingPower: number;
+  cash: number;
+  openPositions: number;
+  copiedTrades: number;
+  positions: Array<{
+    ticker: string;
+    quantity: number;
+    marketValue: number;
+    currentPrice: number;
+    averageEntryPrice: number;
+    unrealizedProfitLoss: number;
+    unrealizedProfitLossPct: number;
+  }>;
 };
 
 type DashboardData = {
@@ -26,18 +42,15 @@ type DashboardData = {
   copiedTrades: CopiedTrade[];
   skippedTrades: SkippedTrade[];
   status: BotStatus;
+  source: "live" | "fallback";
 };
 
-const dataRoot = "/data/capitol-trades";
-
-async function loadJson<T>(path: string): Promise<T> {
-  const response = await fetch(`${dataRoot}/${path}`, { cache: "no-store" });
-
+async function loadDashboardData(): Promise<DashboardData> {
+  const response = await fetch("/api/capitol-trades", { cache: "no-store" });
   if (!response.ok) {
-    throw new Error(`Could not load ${path}`);
+    throw new Error("Could not load dashboard data");
   }
-
-  return response.json() as Promise<T>;
+  return response.json() as Promise<DashboardData>;
 }
 
 export function CapitolTradesDashboard() {
@@ -50,13 +63,7 @@ export function CapitolTradesDashboard() {
     setError(null);
 
     try {
-      const [portfolio, copiedTrades, skippedTrades, status] = await Promise.all([
-        loadJson<PortfolioPoint[]>("portfolio-history.json"),
-        loadJson<CopiedTrade[]>("copied-trades.json"),
-        loadJson<SkippedTrade[]>("skipped-trades.json"),
-        loadJson<BotStatus>("bot-status.json"),
-      ]);
-      setData({ portfolio, copiedTrades, skippedTrades, status });
+      setData(await loadDashboardData());
     } catch {
       setError("Dashboard data could not be loaded. Please try again.");
     } finally {
@@ -87,13 +94,31 @@ export function CapitolTradesDashboard() {
     };
   }, [data]);
 
+  const formatMoney = (value: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(value);
+
+  const formatTimestamp = (value: string) => {
+    const date = new Date(value.includes("T") ? value : value.replace(" ", "T"));
+    return Number.isNaN(date.getTime())
+      ? value
+      : new Intl.DateTimeFormat("en-GB", {
+          dateStyle: "medium",
+          timeStyle: "short",
+          timeZone: "Europe/Berlin",
+        }).format(date);
+  };
+
   return (
     <main className="page-stack ct-dashboard">
       <section className="ct-hero">
         <div className="ct-hero-copy">
           <div className="ct-badge-row">
             <StatusBadge tone="positive">● {data?.status.botStatus ?? "Loading"}</StatusBadge>
-            <StatusBadge>Paper Trading</StatusBadge>
+            <StatusBadge>{data?.source === "live" ? "Live Data" : "Paper Trading"}</StatusBadge>
             <StatusBadge tone="warning">
               Safe Mode {data ? (data.status.safeMode ? "Enabled" : "Disabled") : "Loading"}
             </StatusBadge>
@@ -123,7 +148,15 @@ export function CapitolTradesDashboard() {
           <div className="ct-terminal-line"><i className="is-positive" /> <span>MSFT</span><small>Risk checks passed</small><b>COPIED</b></div>
           <div className="ct-terminal-footer">
             <span>Last scan</span>
-            <strong>{data?.status.lastScan.split(" ").at(-1) ?? "--:--"}</strong>
+            <strong>
+              {data
+                ? new Intl.DateTimeFormat("en-GB", {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "Europe/Berlin",
+                  }).format(new Date(data.status.lastScan))
+                : "--:--"}
+            </strong>
           </div>
         </div>
       </section>
@@ -143,10 +176,10 @@ export function CapitolTradesDashboard() {
       ) : data && metrics ? (
         <>
           <section className="ct-metrics" aria-label="Portfolio metrics">
-            <MetricCard label="Portfolio Value" value={metrics.latest} detail="+2.2% this week" tone="positive" />
+            <MetricCard label="Portfolio Value" value={formatMoney(data.status.portfolioValue)} detail="Live Alpaca paper account" tone="positive" />
             <MetricCard label="Total Return" value={metrics.returnPct} detail="Since simulation start" tone="positive" />
-            <MetricCard label="Open Positions" value="6" detail="Within allocation limits" />
-            <MetricCard label="Copied Trades" value={String(data.copiedTrades.length)} detail="Shown in current dataset" />
+            <MetricCard label="Open Positions" value={String(data.status.openPositions)} detail="Currently held at Alpaca" />
+            <MetricCard label="Copied Trades" value={String(data.status.copiedTrades)} detail="Executed by the bot" />
           </section>
 
           <section className="ct-panel ct-chart-panel">
@@ -192,12 +225,16 @@ export function CapitolTradesDashboard() {
                 <StatusBadge tone="positive">{data.status.botStatus}</StatusBadge>
               </div>
               <dl className="ct-status-list">
-                <div><dt>Last Scan</dt><dd>{data.status.lastScan}</dd></div>
+                <div><dt>Last Scan</dt><dd>{formatTimestamp(data.status.lastScan)}</dd></div>
                 <div><dt>Data Source</dt><dd>{data.status.dataSource}</dd></div>
                 <div><dt>Broker</dt><dd>{data.status.broker}</dd></div>
                 <div><dt>Safe Mode</dt><dd>{data.status.safeMode ? "Enabled" : "Disabled"}</dd></div>
                 <div><dt>Cron</dt><dd>{data.status.cron}</dd></div>
                 <div><dt>Last Error</dt><dd>{data.status.lastError}</dd></div>
+                <div><dt>Cash</dt><dd>{formatMoney(data.status.cash)}</dd></div>
+                <div><dt>Buying Power</dt><dd>{formatMoney(data.status.buyingPower)}</dd></div>
+                <div><dt>Market</dt><dd>{data.status.marketOpen ? "Open" : "Closed"}</dd></div>
+                <div><dt>Data Feed</dt><dd>{data.source === "live" ? "Bot export · live" : "Fallback preview"}</dd></div>
               </dl>
             </article>
             <article className="ct-readonly-card">

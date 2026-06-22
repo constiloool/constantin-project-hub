@@ -8,9 +8,7 @@ const dataRoot =
   "https://raw.githubusercontent.com/constiloool/Capitoltradesbot/dashboard-data/dashboard-data";
 
 async function loadPublishedData<T>(filename: string): Promise<T> {
-  const response = await fetch(`${dataRoot}/${filename}`, {
-    next: { revalidate: 60 },
-  });
+  const response = await fetch(`${dataRoot}/${filename}`, { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(`Dashboard data request failed for ${filename}`);

@@ -49,17 +49,28 @@ export function TradesTable(props: TradesTableProps) {
                   : "No skipped decisions are available yet."}
               </td>
             </tr>
-          ) : props.rows.map((row) => (
-            <tr key={`${row.date}-${row.ticker}-${row.politician}`}>
-              <td>{row.date}</td>
-              <td>{row.politician}</td>
-              <td><strong>{row.ticker}</strong></td>
-              <td><StatusBadge tone={row.action === "BUY" ? "positive" : "warning"}>{row.action}</StatusBadge></td>
-              <td>{copied ? (row as CopiedTrade).signalAge : (row as SkippedTrade).reason}</td>
-              {copied ? <td>{(row as CopiedTrade).allocation}</td> : null}
-              <td><StatusBadge tone={copied ? "positive" : "neutral"}>{row.status}</StatusBadge></td>
-            </tr>
-          ))}
+          ) : props.rows.map((row) => {
+            const normalizedAction = row.action.trim().toUpperCase();
+            const isPurchase = ["BUY", "PURCHASE", "PURCHASED"].includes(
+              normalizedAction,
+            );
+
+            return (
+              <tr key={`${row.date}-${row.ticker}-${row.politician}`}>
+                <td>{row.date}</td>
+                <td>{row.politician}</td>
+                <td><strong>{row.ticker}</strong></td>
+                <td>
+                  <StatusBadge tone={isPurchase ? "positive" : "warning"}>
+                    {row.action}
+                  </StatusBadge>
+                </td>
+                <td>{copied ? (row as CopiedTrade).signalAge : (row as SkippedTrade).reason}</td>
+                {copied ? <td>{(row as CopiedTrade).allocation}</td> : null}
+                <td><StatusBadge tone={copied ? "positive" : "neutral"}>{row.status}</StatusBadge></td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

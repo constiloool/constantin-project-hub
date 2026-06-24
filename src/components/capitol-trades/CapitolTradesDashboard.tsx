@@ -197,7 +197,7 @@ export function CapitolTradesDashboard() {
             <div className="ct-panel-heading">
               <div>
                 <span className="eyebrow">Decision log</span>
-                <h2>Recent Copied Trades</h2>
+                <h2>Recent Accepted / Copied Trades</h2>
               </div>
               <span className="section-count">{data.copiedTrades.length} entries</span>
             </div>

@@ -4,16 +4,16 @@ import fallbackCopiedTrades from "../../../../public/data/capitol-trades/copied-
 import fallbackPortfolio from "../../../../public/data/capitol-trades/portfolio-history.json";
 import fallbackSkippedTrades from "../../../../public/data/capitol-trades/skipped-trades.json";
 
-const dataRoot =
-  "https://raw.githubusercontent.com/constiloool/Capitoltradesbot/dashboard-data/dashboard-data";
+const repository = "constiloool/Capitoltradesbot";
 
 async function loadPublishedData<T>(
   filename: string,
-  revision: number,
+  revision: string,
 ): Promise<T> {
-  const response = await fetch(`${dataRoot}/${filename}?v=${revision}`, {
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `https://raw.githubusercontent.com/${repository}/${revision}/dashboard-data/${filename}`,
+    { cache: "no-store" },
+  );
 
   if (!response.ok) {
     throw new Error(`Dashboard data request failed for ${filename}`);
@@ -24,7 +24,19 @@ async function loadPublishedData<T>(
 
 export async function GET() {
   try {
-    const revision = Date.now();
+    const revisionResponse = await fetch(
+      `https://api.github.com/repos/${repository}/commits/dashboard-data`,
+      {
+        cache: "no-store",
+        headers: { Accept: "application/vnd.github+json" },
+      },
+    );
+    if (!revisionResponse.ok) {
+      throw new Error("Could not resolve dashboard data revision");
+    }
+    const { sha: revision } = (await revisionResponse.json()) as {
+      sha: string;
+    };
     const [portfolio, copiedTrades, skippedTrades, status] = await Promise.all([
       loadPublishedData<typeof fallbackPortfolio>(
         "portfolio-history.json",

@@ -45,7 +45,7 @@ export function TradesTable(props: TradesTableProps) {
             <tr>
               <td className="ct-table-empty" colSpan={copied ? 7 : 6}>
                 {copied
-                  ? "No bot-executed paper trades yet."
+                  ? "No accepted or bot-executed paper trades yet."
                   : "No skipped decisions are available yet."}
               </td>
             </tr>

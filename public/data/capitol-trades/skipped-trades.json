@@ -4,7 +4,7 @@
     "politician": "Example Representative",
     "ticker": "TSLA",
     "action": "BUY",
-    "reason": "Disclosure older than 7 days",
+    "reason": "Disclosure older than 31 days",
     "status": "Skipped"
   },
   {

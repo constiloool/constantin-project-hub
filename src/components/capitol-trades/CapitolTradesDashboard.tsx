@@ -280,7 +280,8 @@ export function CapitolTradesDashboard() {
         </div>
         <div className="ct-rules-grid">
           {[
-            "Only copy trades with a transaction date within the last 7 days.",
+            "Only copy trades whose transaction date is within the last 31 days.",
+            "Only buy when the current price is no more than 10% above the historical close on the politician's trade date.",
             "Use paper trading only; the website cannot execute orders.",
             "Skip duplicate trades and positions that already exist.",
             "Respect maximum position size and portfolio allocation limits.",

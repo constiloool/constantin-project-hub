@@ -7,8 +7,13 @@ import fallbackSkippedTrades from "../../../../public/data/capitol-trades/skippe
 const dataRoot =
   "https://raw.githubusercontent.com/constiloool/Capitoltradesbot/dashboard-data/dashboard-data";
 
-async function loadPublishedData<T>(filename: string): Promise<T> {
-  const response = await fetch(`${dataRoot}/${filename}`, { cache: "no-store" });
+async function loadPublishedData<T>(
+  filename: string,
+  revision: number,
+): Promise<T> {
+  const response = await fetch(`${dataRoot}/${filename}?v=${revision}`, {
+    cache: "no-store",
+  });
 
   if (!response.ok) {
     throw new Error(`Dashboard data request failed for ${filename}`);
@@ -19,11 +24,21 @@ async function loadPublishedData<T>(filename: string): Promise<T> {
 
 export async function GET() {
   try {
+    const revision = Date.now();
     const [portfolio, copiedTrades, skippedTrades, status] = await Promise.all([
-      loadPublishedData<typeof fallbackPortfolio>("portfolio-history.json"),
-      loadPublishedData<typeof fallbackCopiedTrades>("copied-trades.json"),
-      loadPublishedData<typeof fallbackSkippedTrades>("skipped-trades.json"),
-      loadPublishedData<typeof fallbackStatus>("bot-status.json"),
+      loadPublishedData<typeof fallbackPortfolio>(
+        "portfolio-history.json",
+        revision,
+      ),
+      loadPublishedData<typeof fallbackCopiedTrades>(
+        "copied-trades.json",
+        revision,
+      ),
+      loadPublishedData<typeof fallbackSkippedTrades>(
+        "skipped-trades.json",
+        revision,
+      ),
+      loadPublishedData<typeof fallbackStatus>("bot-status.json", revision),
     ]);
 
     return NextResponse.json({

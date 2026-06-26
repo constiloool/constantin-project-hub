@@ -1729,6 +1729,14 @@ button {
   color: #13201b;
 }
 
+.ct-table-subtext {
+  display: block;
+  margin-top: 0.25rem;
+  color: rgba(19, 32, 27, 0.42);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 .ct-table .ct-table-empty {
   padding: 2.25rem 0.75rem;
   color: rgba(19, 32, 27, 0.5);
